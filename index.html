@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>For Zozo</title>
+<meta name="theme-color" content="#141033">
+<meta property="og:title" content="For Zozo">
+<meta property="og:description" content="A small thing to wake up to.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..600,100,1;1,9..144,300..600,100,1&family=Karla:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night:    #141033;
+    --dusk:     #3B2A5E;
+    --ember:    #B4527A;
+    --apricot:  #F2A15E;
+    --glow:     #FFE7CD;
+    --whisper:  rgba(255,231,205,.55);
+
+    --display: "Fraunces", "Iowan Old Style", Georgia, serif;
+    --body: "Karla", "Avenir Next", system-ui, sans-serif;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  html, body{ height:100%; }
+
+  body{
+    background: var(--night);
+    color: var(--glow);
+    font-family: var(--body);
+    min-height:100svh;
+    display:grid;
+    place-items:center;
+    overflow:hidden;
+    position:relative;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---- the dawn ---- */
+  .horizon{
+    position:fixed;
+    inset:auto 0 -30svh 0;
+    height:110svh;
+    background:
+      radial-gradient(60svh 50svh at 50% 100%, var(--apricot) 0%, rgba(242,161,94,0) 62%),
+      radial-gradient(95svh 70svh at 50% 100%, var(--ember) 0%, rgba(180,82,122,0) 68%),
+      radial-gradient(140svh 100svh at 50% 100%, var(--dusk) 0%, rgba(59,42,94,0) 75%);
+    transform: translateY(35svh);
+    opacity:0;
+    animation: rise 5.5s cubic-bezier(.22,.61,.36,1) .3s forwards,
+               breathe 9s ease-in-out 6s infinite;
+    pointer-events:none;
+  }
+
+  @keyframes rise{
+    to{ transform: translateY(0); opacity:1; }
+  }
+  @keyframes breathe{
+    0%,100%{ filter:brightness(1); }
+    50%    { filter:brightness(1.12); }
+  }
+
+  /* ---- drifting motes ---- */
+  .mote{
+    position:fixed;
+    bottom:-10px;
+    width:3px; height:3px;
+    border-radius:50%;
+    background: var(--glow);
+    opacity:0;
+    filter: blur(.4px);
+    animation: drift linear infinite;
+    pointer-events:none;
+  }
+  @keyframes drift{
+    0%   { transform: translateY(0) translateX(0); opacity:0; }
+    12%  { opacity:.7; }
+    80%  { opacity:.35; }
+    100% { transform: translateY(-108svh) translateX(var(--sway)); opacity:0; }
+  }
+
+  /* ---- the words ---- */
+  main{
+    position:relative;
+    z-index:2;
+    text-align:center;
+    padding: 2rem 1.6rem 14svh;
+    max-width: 26ch;
+  }
+
+  h1{
+    font-family: var(--display);
+    font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 90;
+    font-weight:400;
+    font-size: clamp(1.95rem, 7.6vw, 3.3rem);
+    line-height:1.12;
+    letter-spacing:-0.015em;
+    text-wrap:balance;
+  }
+
+  .line-two{
+    display:block;
+    margin-top: .55em;
+    font-size: .58em;
+    font-weight:300;
+    font-style:italic;
+    line-height:1.4;
+    letter-spacing:.005em;
+    color: var(--whisper);
+  }
+
+  .w{
+    display:inline-block;
+    opacity:0;
+    transform: translateY(.5em);
+    filter: blur(6px);
+    animation: surface 1.6s cubic-bezier(.16,.84,.44,1) forwards;
+    animation-delay: calc(1.1s + var(--i) * .26s);
+  }
+  @keyframes surface{
+    to{ opacity:1; transform:none; filter:blur(0); }
+  }
+
+  .sign{
+    margin-top: 3rem;
+    font-family: var(--display);
+    font-style:italic;
+    font-weight:300;
+    font-size: clamp(.95rem, 3.4vw, 1.1rem);
+    letter-spacing:.02em;
+    color: rgba(255,231,205,.42);
+    opacity:0;
+    animation: surface 2s ease 5.6s forwards;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .horizon{ animation:none; transform:none; opacity:1; }
+    .mote{ display:none; }
+    .w, .sign{ animation:none; opacity:1; transform:none; filter:none; }
+    .sign{ opacity:.42; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="horizon"></div>
+
+  <main>
+    <h1>
+      <span class="w" style="--i:0">Hope</span>
+      <span class="w" style="--i:1">you</span>
+      <span class="w" style="--i:2">wake</span>
+      <span class="w" style="--i:3">up</span>
+      <span class="w" style="--i:4">feeling</span>
+      <span class="w" style="--i:5">better</span>
+      <span class="w" style="--i:6">Zozo,</span>
+      <span class="line-two">
+        <span class="w" style="--i:8">You're</span>
+        <span class="w" style="--i:9">forever</span>
+        <span class="w" style="--i:10">loved</span>
+      </span>
+    </h1>
+    <p class="sign">Love, the other Zozo</p>
+  </main>
+
+<script>
+  // scatter a handful of slow motes
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce) {
+    const frag = document.createDocumentFragment();
+    for (let i = 0; i < 14; i++) {
+      const m = document.createElement('div');
+      m.className = 'mote';
+      m.style.left = (Math.random() * 100).toFixed(2) + '%';
+      m.style.setProperty('--sway', (Math.random() * 80 - 40).toFixed(0) + 'px');
+      m.style.animationDuration = (16 + Math.random() * 16).toFixed(1) + 's';
+      m.style.animationDelay = (Math.random() * 18).toFixed(1) + 's';
+      const s = (2 + Math.random() * 2.5).toFixed(1) + 'px';
+      m.style.width = s; m.style.height = s;
+      frag.appendChild(m);
+    }
+    document.body.appendChild(frag);
+  }
+</script>
+</body>
+</html>
